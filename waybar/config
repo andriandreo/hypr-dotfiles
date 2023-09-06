@@ -1,0 +1,242 @@
+{
+    "layer": "top", 
+    "position": "bottom",
+    "height": 20, 
+    "modules-left": ["disk", "memory", "cpu", "custom/cpu", "temperature#cpu", "temperature#gpu", "custom/gpu", "temperature#nvme", "custom/paru"],
+    "modules-center": ["sway/workspaces", "hyprland/workspaces"],
+    "modules-right": ["custom/media", "custom/airquality", "custom/weather", "custom/ping", "pulseaudio", "network", "clock", "tray"],
+
+    "sway/workspaces": {
+        "disable-scroll": false,
+        "all-outputs": true,
+        "format": "{icon}",
+        "format-icons": {
+            "1: 1": "<span color=\"#29d7e0\"></span>",
+            "2: 2": "",
+            "3: 3": "",
+            "4: 4": "<span color=\"#1DB954\"></span>",
+            "5: 5": "<span color=\"#b91d34\"></span>",
+            "6: 6": "<span color=\"#1DB954\"></span>",
+            "urgent": "",
+            "default": ""
+        }
+     },
+     
+     "hyprland/workspaces": {
+        "disable-scroll": false,
+        "all-outputs": true,
+        "on-click": "activate",
+        "format": "{icon}",
+        "format-icons": {
+            "1": "<span color=\"#29d7e0\"></span>",
+            "2": "",
+            "3": "",
+            "4": "<span color=\"#1DB954\"></span>",
+            "5": "<span color=\"#b91d34\"></span>",
+            "6": "<span color=\"#1DB954\"></span>",
+            "urgent": "",
+            "default": ""
+        }
+     },
+    
+    "tray": {
+        "icon-size": 22,
+        "spacing": 5
+    },
+
+    "clock": {
+	"format": " {:%a %d %b %H:%M}",
+	"tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>",
+        "today-format": "<span color='#ff6699'><b><u>{}</u></b></span>",
+        "calendar-weeks-pos": "right",
+        "format-calendar": "<span color='#ecc6d9'><b>{}</b></span>",
+        "format-calendar-weeks": "<span color='#99ffdd'><b>W{:%V}</b></span>",
+        "format-calendar-weekdays": "<span color='#ffcc66'><b>{}</b></span>",
+        "interval": 10,
+        "on-scroll": {
+            "calendar": 1
+        }
+    },
+
+    "cpu": {
+        "interval": 1,
+        "format": "<span color=\"#ff8c00\"></span> {max_frequency}GHz  {usage}%",
+        "on-click": "foot htop --sort-key PERCENT_CPU"
+    },
+    
+    "memory": {
+        "format": " {used:0.1f}G/{total:0.1f}G {}%"
+    },
+    
+    "network": {
+        "interval": 1,
+        "format-wifi": " {essid} {ipaddr}",
+        "format-ethernet": "{ipaddr}/{cidr} ",
+        "format-linked": "{ifname} (No IP) ",   
+        "format-disconnected": "Disconnected ⚠",
+        "family": "ipv4",
+        "tooltip-format-wifi": "  {ifname} @ {essid}\nIP: {ipaddr}\nStrength: {signalStrength}%\nFreq: {frequency}MHz\n {bandwidthUpBytes}  {bandwidthDownBytes}",
+        "tooltip-format-ethernet": " {ifname}\nIP: {ipaddr}\n {bandwidthUpBytes}  {bandwidthDownBytes}"
+    },
+
+    "disk": {
+       "interval": 30,
+       "format": " {free} {percentage_used}%",
+       "path": "/"
+    },
+
+    "pulseaudio": {
+        "scroll-step": 5,
+        "format": "{format_source}  {icon} {volume}%",
+        "format-bluetooth": "{format_source}  {icon} {volume}%",
+        "format-muted": "{format_source}   Muted",        
+        "format-source": "",
+        "format-source-muted": "",
+        "format-icons": {
+            "headphones": "",
+            "handsfree": "",
+            "headset": "",
+            "phone": "",
+            "portable": "",
+            "car": "",
+            "default": ["", ""]
+        },
+        "on-click": "pactl set-sink-mute @DEFAULT_SINK@ toggle",
+        "on-click-middle": "~/.config/waybar/scripts/audioswitch.sh",
+        "on-click-right": "pactl set-source-mute @DEFAULT_SOURCE@ toggle"        
+    },
+
+    "temperature#cpu": {
+	    "hwmon-path-abs": "/sys/devices/platform/nct6775.656/hwmon/",
+	    "critical-threshold": 80,
+	    "input-filename": "temp2_input",
+        "format-critical": "CPU  {temperatureC}°C",
+	    "format": "CPU  {temperatureC}°C"
+    },
+
+    "temperature#gpu": {
+	    "hwmon-path-abs": "/sys/class/drm/card0/device/hwmon",
+        "critical-threshold": 80,
+        "input-filename": "temp1_input",
+        "format-critical": "GPU  {temperatureC}°C",
+	    "format": "GPU  {temperatureC}°C"
+    },
+
+    "temperature#nvme": {
+        "hwmon-path-abs": "/sys/class/nvme/nvme0/device/hwmon/",
+        "input-filename": "temp1_input",
+        "critical-threshold": 80,
+        "format-critical": "NVME  {temperatureC}°C",
+        "format": "NVME  {temperatureC}°C"
+    },
+
+    "custom/mediaplayer": {
+        "format": "{}",
+        "max-length": 40,
+        "exec": "~/.config/waybar/scripts/mediaplayer.sh",
+        "escape": true,
+        "on-click": "playerctl play-pause",
+        "on-click-middle": "playerctl previous",
+        "on-click-right": "playerctl next",
+        "interval": 5
+    },
+
+    "custom/paru": {
+        "format": " {}",
+        "interval": 3600,                     
+        "exec": "paru -Qu | wc -l",
+        "exec-if": "exit 0",
+        "on-click": "foot 'paru'; pkill -SIGRTMIN+8 waybar",
+        "signal": 8
+    },
+
+    "custom/media": {
+        "format": "<span color=\"#1DB954\">{icon}</span> {}",
+        "return-type": "json",
+        "max-length": 50,
+        "format-icons": {
+            "spotify": "",
+            "default": "🎜"
+        },
+        "escape": true,
+        "on-click-middle": "playerctl -p spotify play-pause",
+        "on-click": "playerctl -p spotify previous",
+        "on-click-right": "playerctl -p spotify next",
+        "exec": "$HOME/.config/waybar/scripts/mediaplayer.py --player spotify 2> /dev/null"
+    },
+
+    "custom/ping": {
+        "format": "{}",
+        "max-length": 40,
+        "exec": "~/.config/waybar/scripts/info-pingrtt.sh",
+        "interval": 5,
+        "escape": true
+    },
+
+    "custom/airquality": {
+        "format": "{}",
+        "max-length": 40,
+        "exec": "~/.config/waybar/scripts/info-airqualityindex.sh",
+        "interval": 5,
+        "escape": true
+    },
+
+    "custom/weather": {
+        "format": "{}",
+        "tooltip": true,
+        "exec": "~/.config/waybar/scripts/waybar-wttr.py",
+        "interval": 3600,
+        "return-type": "json"
+    },
+
+    "custom/mail": {
+        "tooltip": false,
+        "exec": "sh $HOME/.config/waybar/scripts/mail.sh",
+        "interval": 120,
+        "on-click": "thunderbird && swaymsg '[app_id=thunderbird] focus'"
+        
+    },
+
+    "custom/crypto": {
+        "format": "{}",
+        "interval": 600,
+        "return-type": "json",
+        "exec": "~/.config/waybar/scripts/crypto.py",
+        "exec-if": "ping pro-api.coinmarketcap.com -c1"
+        },
+
+    "custom/cpu": {
+        "exec": "~/.config/waybar/scripts/cpu_graphical.py 0.1 2",
+        "format": " {}",
+        "tooltip": true,
+        "return-type": "json",
+        "on-click": "foot htop"
+    },
+
+    "custom/gpu": {
+        "exec": "$HOME/.config/waybar/scripts/custom-gpu.sh",
+        "return-type": "json",
+        "format": "{}",
+        "interval": 2,
+        "tooltip": "{tooltip}",
+        "on-click": "powerupp"
+      
+    }, 
+    
+    "custom/hack": {
+        "format": "{}",
+        "max-length": 40,
+        "exec": "~/.config/waybar/scripts/hack.sh",
+        "interval": 5,
+        "escape": true
+    },
+
+    "custom/vpn":{
+        "format": "{icon}",
+        "tooltip-format": "{icon}",
+        "exec": "~/.config/waybar/scripts/hackthebox.sh",
+        "return-type": "json",
+        "interval": 5,
+        "format-icons": ["",""]
+    }
+}

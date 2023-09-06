@@ -1,0 +1,7 @@
+width=700
+height=700
+mode=drun
+allow_images=true
+prompt=
+term=alacritty
+no_actions=true
