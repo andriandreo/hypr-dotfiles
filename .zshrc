@@ -52,4 +52,4 @@ alias cat="bat"
 # rsync: Not cp anymore
 alias cp="rsync -a --info=progress2"
 
-
+eval "$(atuin init zsh)"

@@ -33,7 +33,7 @@ tooltip_update_time = 1
 
 # Appearance
 
-chars = ' ▁▂▃▄▅▆▇█'
+chars = '▁▂▃▄▅▆▇█'
 
 states = {
     0: {
