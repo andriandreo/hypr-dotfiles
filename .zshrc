@@ -56,7 +56,8 @@ alias cat="bat"
 # rsync: Not cp anymore
 alias cp="rsync -a --info=progress2"
 
-eval "$(atuin init zsh)"
+eval "$(atuin init zsh --disable-up-arrow)" 
+bindkey '^[[1;2A' _atuin_search_widget
 
 # Created by `pipx` on 2023-09-21 11:08:18
 export PATH="$PATH:/home/andriandreo/.local/bin"
