@@ -2,6 +2,12 @@
 
 #export SSH_AUTH_SOCK=/run/user/1000/ssh-agent.socket
 
+# Set up 'silent output'
+silent_background() {
+  setopt LOCAL_OPTIONS NO_NOTIFY NO_MONITOR
+  "$@" &
+} 
+
 # Autostart odrive/BoxSync agent
 if [[ -z $DISPLAY ]] && [[ $(tty) = /dev/tty1 ]]; then  
   nohup "$HOME/.odrive-agent/bin/odriveagent" > /dev/null 2>&1 &
@@ -32,10 +38,11 @@ neofetch | lolcat
 # Simulate xterm via ssh
 alias ssh="TERM=xterm-256color ssh"
 
-# zsh plugins
+# zsh plugins & dev
 source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
 source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 source ~/.zsh/zsh-wakatime/zsh-wakatime.plugin.zsh
+source silent_background /opt/esp-idf/export.sh
 
 # Paru: Pacman Helper
 alias yay="paru"
