@@ -27,13 +27,15 @@ if [[ -z $DISPLAY ]] && [[ $(tty) = /dev/tty1 ]]; then
 fi
 
 # Fetch & lolcat
-freshfetch | lolcat
+neofetch | lolcat
 
 # Simulate xterm via ssh
 alias ssh="TERM=xterm-256color ssh"
 
-# Autosuggestions
+# zsh plugins
 source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
+source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+source ~/.zsh/zsh-wakatime/zsh-wakatime.plugin.zsh
 
 # Paru: Pacman Helper
 alias yay="paru"
@@ -53,3 +55,6 @@ alias cat="bat"
 alias cp="rsync -a --info=progress2"
 
 eval "$(atuin init zsh)"
+
+# Created by `pipx` on 2023-09-21 11:08:18
+export PATH="$PATH:/home/andriandreo/.local/bin"
