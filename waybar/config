@@ -2,7 +2,7 @@
     "layer": "top", 
     "position": "bottom",
     "height": 20, 
-    "modules-left": ["disk", "memory", "cpu", "custom/cpu", "temperature#cpu", "temperature#gpu", "custom/gpu", "temperature#nvme", "custom/paru"],
+    "modules-left": ["custom/clipboard", "disk", "memory", "cpu", "custom/cpu", "temperature#cpu", "temperature#gpu", "custom/gpu", "temperature#nvme", "custom/paru"],
     "modules-center": ["sway/workspaces", "hyprland/workspaces"],
     "modules-right": ["custom/media", "custom/airquality", "custom/weather", "custom/ping", "pulseaudio", "network", "clock", "tray"],
 
@@ -148,6 +148,14 @@
         "exec-if": "exit 0",
         "on-click": "foot 'paru'; pkill -SIGRTMIN+8 waybar",
         "signal": 8
+    },
+    
+    "custom/clipboard": {
+        "format": "<span color=\"#3E3E3E\"></span> {}",
+        "format-alt": " {}",
+        //"format-alt-click": "click-right",      
+        "on-click": "ps -e | grep clipboard | awk '{print $1}' | xargs kill",
+        "on-click-right": "$HOME/.config/waybar/scripts/clipboard.sh"
     },
 
     "custom/media": {
