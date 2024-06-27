@@ -16,7 +16,8 @@ if [[ -z $DISPLAY ]] && [[ $(tty) = /dev/tty1 ]]; then
   export NO_AT_BRIDGE=1
   export MOZ_ENABLE_WAYLAND=true # Use =1 or =true to support wayland or xwayland Window Protocol, respectively
   export _JAVA_AWT_WM_NONREPARENTING=1
-  export QT_QPA_PLATFORMTHEME=qt5ct
+  export QT_QPA_PLATFORMTHEME=qt6ct
+  export QT_STYLE_OVERRIDE=adwaita-dark
   export QT_FONT_DPI=96
   #export GTK_USE_PORTAL=1
   #export GDK_DEBUG=portals # New command for the above (?)
