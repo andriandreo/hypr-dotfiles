@@ -1,0 +1,117 @@
+# Basic sway
+set $mod Mod4
+font "Terminus (TTF)" 11
+default_border none
+default_floating_border none
+floating_modifier $mod
+focus_follows_mouse always
+
+# reload the configuration file  
+bindsym $mod+Shift+c reload
+
+input * xkb_layout "us" 
+input * xkb_variant "intl"
+
+# Enable Num. Lock
+input * xkb_numlock enable
+
+# Programs
+bindsym $mod+Escape exec wlogout
+bindsym $mod+Return exec footclient
+bindsym $mod+d exec nautilus -w
+bindsym $mod+Space exec wofi
+bindsym $mod+l exec swaylock --screenshots --clock --indicator --indicator-radius 100 --indicator-thickness 7 --effect-blur 7x5 --effect-vignette 0.5:0.5 --ring-color 110a15 --key-hl-color 9bc8d1 --inside-wrong-color 222324 --ring-wrong-color 943f44 --text-wrong-color 512325 --inside-ver-color 222324 --ring-ver-color 45a19c --text-ver-color 1d4341 --inside-clear-color 222324 --ring-clear-color e2a838 --text-clear-color 906615 --line-color 00000000 --inside-color 00000088 --separator-color 00000000 --grace 2 --fade-in 0.2
+# bindsym --release Print exec grim -g \"$(slurp)" - | wl-copy
+# bindsym Print exec maim -s --hidecursor | xclip -selection clipboard -t image/png
+bindsym --release Print exec grim -g "$(slurp)" - | swappy -f -
+
+# Media
+bindsym XF86AudioRaiseVolume exec pactl set-sink-volume @DEFAULT_SINK@ +5%
+bindsym XF86AudioLowerVolume exec pactl set-sink-volume @DEFAULT_SINK@ -5%
+bindsym XF86AudioMute exec pactl set-sink-mute @DEFAULT_SINK@ toggle
+bindsym XF86AudioMicMute exec pactl set-source-mute @DEFAULT_SOURCE@ toggle
+bindsym XF86AudioPlay exec playerctl play-pause
+bindsym XF86Mail exec playerctl next
+bindsym XF86HomePage exec playerctl previous
+bindsym XF86MonBrightnessUp   exec xbacklight -inc 5
+bindsym XF86MonBrightnessDown exec xbacklight -dec 5
+
+# WM stuff
+bindsym $mod+Tab workspace back_and_forth
+bindsym $mod+q kill
+
+bindsym $mod+Left focus left
+bindsym $mod+Down focus down
+bindsym $mod+Up focus up
+bindsym $mod+Right focus right
+
+bindsym $mod+Shift+Left move left
+bindsym $mod+Shift+Down move down
+bindsym $mod+Shift+Up move up
+bindsym $mod+Shift+Right move right
+
+bindsym $mod+f fullscreen toggle
+
+# toggle tiling / floating
+bindsym $mod+s floating toggle
+bindsym $mod+x split toggle
+bindsym $mod+z layout toggle split
+
+# Define names for default workspaces for which we configure key bindings later on.
+# We use variables to avoid repeating the names in multiple places.
+set $ws1 "1: 1"
+set $ws2 "2: 2"
+set $ws3 "3: 3"
+set $ws4 "4: 4"
+set $ws5 "5: 5"
+set $ws6 "6: 6"
+
+# switch to workspace
+bindsym $mod+1 workspace $ws1
+bindsym $mod+2 workspace $ws2
+bindsym $mod+3 workspace $ws3
+bindsym $mod+4 workspace $ws4
+bindsym $mod+5 workspace $ws5
+bindsym $mod+6 workspace $ws6
+
+bindsym $mod+A scratchpad show
+
+# move focused container to workspace
+bindsym $mod+Shift+1 move container to workspace $ws1
+bindsym $mod+Shift+2 move container to workspace $ws2
+bindsym $mod+Shift+3 move container to workspace $ws3
+bindsym $mod+Shift+4 move container to workspace $ws4
+bindsym $mod+Shift+5 move container to workspace $ws5
+bindsym $mod+Shift+6 move container to workspace $ws6
+
+bindsym $mod+Shift+A move container to scratchpad
+
+# Wallpapers
+set $wallpapers ~/Pictures/Wallhaven/
+output "*" bg `find $wallpapers -type f | shuf -n 1` fill
+
+# GNOME Themes & icons
+set $gnome-schema org.gnome.desktop.interface
+exec_always {
+  gsettings set $gnome-schema gtk-theme 'MonoThemeDark'
+  gsettings set $gnome-schema icon-theme 'Inverse-orange-dark'
+}
+
+# Start i3bar to display a workspace bar (plus the system information i3status
+# finds out, if available)
+bar {
+    swaybar_command waybar
+}
+
+# exec mako
+exec swaync
+# exec --no-startup-id /usr/local/bin/alternating_layouts.py
+exec autotiling
+exec foot --server
+exec python ~/.config/sway/rice.py #Soft transitions
+# exec python3 /usr/share/sway/scripts/inactive-windows-transparency.py #Hard transitions
+
+exec systemctl --user import-environment DISPLAY WAYLAND_DISPLAY SWAYSOCK
+exec hash dbus-update-activation-environment 2>/dev/null && \
+     dbus-update-activation-environment --systemd DISPLAY WAYLAND_DISPLAY SWAYSOCK
+exec /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
