@@ -65,7 +65,7 @@
     },
     
     "memory": {
-        "format": " {used:0.1f}G/{total:0.1f}G {}%"
+        "format": " {used:0.1f}G/{total:0.1f}G {0}%"
     },
     
     "network": {
@@ -159,7 +159,7 @@
     },
 
     "custom/media": {
-        "format": "<span color=\"#1DB954\">{icon}</span> {}",
+        "format": "<span color=\"#1DB954\">{icon}</span> {0}",
         "return-type": "json",
         "max-length": 50,
         "format-icons": {
