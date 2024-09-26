@@ -1,0 +1,22 @@
+[Desktop Entry]
+Name=Enter TeX
+GenericName=TeX Editor
+Comment=Edit TeX documents
+Keywords=text;tex;latex;editor;documents;
+Exec=env GTK_THEME=Adwaita:dark enter-tex %U
+Icon=org.gnome.enter_tex
+Terminal=false
+Type=Application
+StartupNotify=true
+Categories=GNOME;GTK;Office;WordProcessor;Publishing;
+MimeType=text/x-tex;
+DBusActivatable=false
+Actions=new-window;new-document;
+
+[Desktop Action new-window]
+Name=Open a New Window
+Exec=env GTK_THEME=Adwaita:dark enter-tex --new-window
+
+[Desktop Action new-document]
+Name=Open a New Document
+Exec=env GTK_THEME=Adwaita:dark enter-tex --new-document
