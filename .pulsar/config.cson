@@ -1,0 +1,17 @@
+"*":
+  "autocomplete-plus":
+    confirmCompletion: "tab always, enter when suggestion explicitly selected"
+  core:
+    telemetryConsent: "no"
+  editor: {}
+  "grammar-token-limit":
+    maxTokensPerLine: 300
+  "markdown-pdf": {}
+  "markdown-preview-enhanced":
+    previewTheme: "github-dark.css"
+  "markdown-preview-plus":
+    style: "github"
+  wakatime:
+    apikey: "Saved in your $WAKATIME_HOME/.wakatime.cfg file"
+  welcome:
+    showOnStartup: false
