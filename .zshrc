@@ -99,6 +99,6 @@ fi
 # ==============================================================================
 # 6. FETCH | LOLCAT (STARTUP SCRIPT)
 # ==============================================================================
-if [ "$TERM" != "dumb" ] && command -v freshfetch &> /dev/null && command -v lolcat &> /dev/null; then
-    freshfetch | lolcat
+if [ "$TERM" != "dumb" ] && command -v fastfetch &> /dev/null && command -v lolcat &> /dev/null; then
+    fastfetch | lolcat
 fi
